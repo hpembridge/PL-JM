@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PL-CM-1.25</title>
+  <title>PL-JM-1.25</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 
@@ -89,39 +89,43 @@
 
     /* Dev Notes */
     .notes-section { margin-bottom: 36px; }
-    .notes-list { display: flex; flex-direction: column; gap: 8px; }
-    .notes-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+
+    /* Inline markdown notes */
+    .notes-inline-card {
       background: #fff;
       border: 1px solid #dde2ea;
-      border-radius: 8px;
-      padding: 12px 16px;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 10px;
     }
-    .notes-row-label {
-      flex: 1;
-      font-size: 13px;
-      font-weight: 500;
-      color: #4b5563;
+    .notes-inline-card h1, .notes-inline-card h2, .notes-inline-card h3 {
+      font-weight: 700; margin: 0 0 10px; color: #1a1d23; line-height: 1.3;
     }
-    .notes-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #6366f1;
-      background: #eef2ff;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      transition: background .15s;
-      letter-spacing: .02em;
-      white-space: nowrap;
+    .notes-inline-card h1 { font-size: 18px; }
+    .notes-inline-card h2 { font-size: 15px; margin-top: 24px; }
+    .notes-inline-card h3 { font-size: 13px; margin-top: 20px; color: #4b5563; }
+    .notes-inline-card p  { font-size: 13px; line-height: 1.65; color: #374151; margin-bottom: 12px; }
+    .notes-inline-card ul, .notes-inline-card ol {
+      font-size: 13px; line-height: 1.65; color: #374151;
+      padding-left: 18px; margin-bottom: 12px;
     }
-    .notes-btn:hover { background: #e0e7ff; }
+    .notes-inline-card li { margin-bottom: 4px; }
+    .notes-inline-card code {
+      font-family: "SF Mono", Menlo, monospace; font-size: 12px;
+      background: #f3f4f6; border-radius: 4px; padding: 1px 5px; color: #6366f1;
+    }
+    .notes-inline-card pre {
+      background: #f3f4f6; border-radius: 6px; padding: 14px;
+      overflow-x: auto; margin-bottom: 12px;
+    }
+    .notes-inline-card pre code { background: none; padding: 0; color: #1a1d23; }
+    .notes-inline-card blockquote {
+      border-left: 3px solid #dde2ea; padding-left: 12px;
+      color: #6b7280; margin: 0 0 12px;
+    }
+    .notes-inline-card hr { border: none; border-top: 1px solid #edf0f4; margin: 20px 0; }
+    .notes-inline-card strong { font-weight: 700; color: #1a1d23; }
+    .notes-inline-card a { color: #6366f1; text-decoration: underline; }
 
     /* Prototype cards */
     .card-grid { display: flex; flex-direction: column; gap: 10px; }
@@ -142,85 +146,6 @@
     .card-arrow { font-size: 12px; color: #9aa3b0; }
 
     .status-msg { font-size: 13px; color: #8e9aab; }
-
-    /* Flyout */
-    .flyout-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.35);
-      z-index: 100;
-      backdrop-filter: blur(2px);
-    }
-    .flyout-overlay.open { display: block; }
-    .flyout-panel {
-      position: fixed;
-      top: 0;
-      right: -520px;
-      width: 480px;
-      max-width: 94vw;
-      height: 100%;
-      background: #fff;
-      box-shadow: -4px 0 32px rgba(0,0,0,.12);
-      z-index: 101;
-      display: flex;
-      flex-direction: column;
-      transition: right .28s cubic-bezier(.4,0,.2,1);
-      overflow: hidden;
-    }
-    .flyout-panel.open { right: 0; }
-    .flyout-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 1px solid #edf0f4;
-      flex-shrink: 0;
-    }
-    .flyout-title { font-size: 14px; font-weight: 700; color: #1a1d23; }
-    .flyout-subtitle { font-size: 11px; color: #8e9aab; margin-top: 2px; }
-    .flyout-close {
-      background: none;
-      border: none;
-      font-size: 16px;
-      color: #8e9aab;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 4px;
-      transition: color .15s;
-    }
-    .flyout-close:hover { color: #1a1d23; }
-    .flyout-body { flex: 1; overflow-y: auto; padding: 24px; }
-
-    /* Markdown in flyout */
-    .flyout-body h1, .flyout-body h2, .flyout-body h3 {
-      font-weight: 700; margin: 0 0 10px; color: #1a1d23; line-height: 1.3;
-    }
-    .flyout-body h1 { font-size: 18px; }
-    .flyout-body h2 { font-size: 15px; margin-top: 24px; }
-    .flyout-body h3 { font-size: 13px; margin-top: 20px; color: #4b5563; }
-    .flyout-body p  { font-size: 13px; line-height: 1.65; color: #374151; margin-bottom: 12px; }
-    .flyout-body ul, .flyout-body ol {
-      font-size: 13px; line-height: 1.65; color: #374151;
-      padding-left: 18px; margin-bottom: 12px;
-    }
-    .flyout-body li { margin-bottom: 4px; }
-    .flyout-body code {
-      font-family: "SF Mono", Menlo, monospace; font-size: 12px;
-      background: #f3f4f6; border-radius: 4px; padding: 1px 5px; color: #6366f1;
-    }
-    .flyout-body pre {
-      background: #f3f4f6; border-radius: 6px; padding: 14px;
-      overflow-x: auto; margin-bottom: 12px;
-    }
-    .flyout-body pre code { background: none; padding: 0; color: #1a1d23; }
-    .flyout-body blockquote {
-      border-left: 3px solid #dde2ea; padding-left: 12px;
-      color: #6b7280; margin: 0 0 12px;
-    }
-    .flyout-body hr { border: none; border-top: 1px solid #edf0f4; margin: 20px 0; }
-    .flyout-body strong { font-weight: 700; color: #1a1d23; }
-    .flyout-body a { color: #6366f1; text-decoration: underline; }
 
     footer {
       text-align: center;
@@ -249,31 +174,18 @@
   </header>
 
   <main>
-    <div class="notes-section" id="notesSection" style="display:none">
-      <div class="section-label">Dev Notes</div>
-      <div class="notes-list" id="notesList"></div>
-    </div>
-
     <div class="section-label">Prototypes</div>
     <div class="card-grid" id="cardGrid">
       <span class="status-msg">Loading…</span>
     </div>
+
+    <div class="notes-section" id="notesSection" style="display:none">
+      <div class="section-label" style="margin-top:36px">Dev Notes</div>
+      <div id="notesList"></div>
+    </div>
   </main>
 
   <footer id="footerText"></footer>
-
-  <!-- Flyout -->
-  <div class="flyout-overlay" id="flyoutOverlay" onclick="closeFlyout()"></div>
-  <div class="flyout-panel" id="flyoutPanel">
-    <div class="flyout-header">
-      <div>
-        <div class="flyout-title" id="flyoutTitle"></div>
-        <div class="flyout-subtitle" id="flyoutSubtitle"></div>
-      </div>
-      <button class="flyout-close" onclick="closeFlyout()"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="flyout-body" id="flyoutBody"></div>
-  </div>
 
   <script>
     // ── Apply static config ──
@@ -283,7 +195,6 @@
     document.getElementById('footerText').textContent = CONFIG.title + ' · Cleveland Menu Co.';
     document.getElementById('lTracker').href = CONFIG.sprintTrackerUrl;
     document.getElementById('lGithub').href  = `https://github.com/${CONFIG.owner}/${CONFIG.repo}`;
-    document.getElementById('flyoutSubtitle').textContent = CONFIG.title + ' · Dev Notes';
 
     // ── Utilities ──
     function toTitle(str) {
@@ -336,22 +247,24 @@
         });
       }
 
-      // Build notes rows
+      // Build inline notes
       if (notesFiles.length > 0) {
         const section = document.getElementById('notesSection');
         const list    = document.getElementById('notesList');
         section.style.display = '';
-        notesFiles.forEach(name => {
-          const label = toTitle(name);
-          const row = document.createElement('div');
-          row.className = 'notes-row';
-          row.innerHTML = `
-            <span class="notes-row-label">${label}</span>
-            <button class="notes-btn" onclick="openFlyout('${name}','${label}')">
-              <i class="fa-solid fa-book-open"></i> View Notes
-            </button>`;
-          list.appendChild(row);
-        });
+        await Promise.all(notesFiles.map(async name => {
+          const card = document.createElement('div');
+          card.className = 'notes-inline-card';
+          card.innerHTML = '<p style="color:#8e9aab;font-size:13px">Loading…</p>';
+          list.appendChild(card);
+          try {
+            const r = await fetch(name);
+            const md = await r.text();
+            card.innerHTML = marked.parse(md);
+          } catch {
+            card.innerHTML = '<p style="color:#8e9aab;font-size:13px">Could not load notes.</p>';
+          }
+        }));
       }
     }
 
@@ -359,27 +272,6 @@
       document.getElementById('cardGrid').innerHTML =
         '<span class="status-msg">Could not load files. This page must be served over HTTP with access to the GitHub API.</span>';
     });
-
-    // ── Flyout ──
-    function openFlyout(file, label) {
-      document.getElementById('flyoutTitle').textContent = label;
-      document.getElementById('flyoutBody').innerHTML = '<p style="color:#8e9aab;font-size:13px">Loading…</p>';
-      document.getElementById('flyoutOverlay').classList.add('open');
-      document.getElementById('flyoutPanel').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      fetch(file)
-        .then(r => r.text())
-        .then(md => { document.getElementById('flyoutBody').innerHTML = marked.parse(md); })
-        .catch(() => { document.getElementById('flyoutBody').innerHTML = '<p style="color:#8e9aab;font-size:13px">Could not load notes.</p>'; });
-    }
-
-    function closeFlyout() {
-      document.getElementById('flyoutOverlay').classList.remove('open');
-      document.getElementById('flyoutPanel').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlyout(); });
   </script>
 
 </body>
