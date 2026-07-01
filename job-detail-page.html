@@ -382,6 +382,12 @@
       border: solid 1px var(--interactive-default);
     }
 
+    .tab-panel{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     /* ── PAGE CONTENT ── */
     .page-content {
       max-width: var(--container-workspace);
@@ -466,6 +472,12 @@
       color: var(--text-tertiary);
       margin-bottom: 6px;
       display: block;
+    }
+    .eyebrow{
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: var(--fontsize-body-sm);
+      color: var(--text-tertiary);
     }
 
     .ship-field-tabs {
@@ -1367,7 +1379,7 @@
       background: var(--bg-muted);
       border: 1px solid var(--border-subtle);
       border-radius: var(--border-radius-sm);
-      margin-bottom: 4px;
+      margin-bottom: 24px;
     }
 
     .pc-email-string-text {
@@ -1382,19 +1394,6 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-    }
-
-    .pc-added-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border-subtle);
-      gap: 12px;
-    }
-
-    .pc-added-row:first-child {
-      border-top: 1px solid var(--border-subtle);
     }
 
     .pc-added-info {
@@ -1413,6 +1412,95 @@
       font-size: var(--fontsize-body-sm);
       color: var(--text-tertiary);
     }
+
+    /* ── Job Contacts table ── */
+    .pc-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .pc-table thead tr {
+      border-bottom: 2px solid var(--border-subtle);
+    }
+    .pc-table th {
+      font-size: var(--fontsize-label);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      padding: 5px 0;
+      text-align: left;
+    }
+    .pc-th-receives { width: 210px; }
+    .pc-th-action   { width: 32px; }
+    /* z-index fix: rows are positioned so open dropdown clears siblings */
+    .pc-table tbody tr { border-bottom: 1px solid var(--border-subtle); position: relative; }
+    .pc-row-open { z-index: 10; }
+    .pc-table td {
+      padding: 8px 0;
+      vertical-align: middle;
+    }
+    .pc-table td:not(:last-child) { padding-right: 12px; }
+
+    /* Scrollable modal variant (fixed header/footer, scrollable inner list) */
+    .modal-scroll { overflow: hidden; }
+    .modal-scroll .te-list { overflow-y: auto; flex: 1; }
+
+    /* Shared icon helpers */
+    .pc-search-icon { color: var(--text-tertiary); font-size: var(--fontsize-body-sm); flex-shrink: 0; }
+    .pc-chevron     { font-size: 10px; color: var(--text-tertiary); flex-shrink: 0; }
+    .pc-receives-none { font-size: 11px; font-style: italic; color: var(--text-tertiary); }
+    .icon-success   { color: var(--status-success-fg); }
+
+    /* Time entry cell text */
+    .te-val     { font-size: var(--fontsize-body-sm); color: var(--text-primary); }
+    .te-val-sec { font-size: var(--fontsize-body-sm); color: var(--text-secondary); }
+
+    /* Time entry compact inputs */
+    .te-input-sm   { font-size: var(--fontsize-body-sm) !important; padding: 5px 8px !important; }
+    .te-input-time { font-size: var(--fontsize-body-sm) !important; padding: 5px 6px !important; width: 48px; text-align: center; }
+
+    .pc-receives-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .pc-receives-trigger {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      min-height: 30px;
+    }
+    .pc-receives-tags {
+      flex: 1;
+    }
+    .pc-receives-text {
+      font-size: var(--fontsize-body-sm);
+      color: var(--text-primary);
+    }
+    .pc-receives-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-sm);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      z-index: 200;
+      padding: 4px 0;
+    }
+    .pc-receives-opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      font-size: var(--fontsize-body-sm);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .pc-receives-opt:hover { background: var(--interactive-bg-subtle); }
+    .pc-receives-opt input[type="checkbox"] { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* ── Time Entries Modal ── */
     .te-header-row {
@@ -1824,9 +1912,7 @@
         <div class="inner-row border-top" style="justify-content:space-between; align-items:center;">
           <div style="display:flex; gap:8px;">
             <button class="btn-secondary btn-secondary-sm">View Linked Jobs</button>
-            <button class="btn-secondary btn-secondary-sm" onclick="openModal('proofContacts')">Manage Proof
-              Contacts</button>
-            <button class="btn-secondary btn-secondary-sm" onclick="openModal('timeEntries')">Manage Time
+<button class="btn-secondary btn-secondary-sm" onclick="openModal('timeEntries')">Manage Time
               Entries</button>
             <button class="btn-secondary btn-secondary-sm" id="trello-btn" onclick="trelloAction()">Send to
               Trello</button>
@@ -1846,6 +1932,18 @@
       <!-- ── SHIPPING PANEL ── -->
       <div class="tab-panel" id="tab-panel-shipping" style="display:none;">
 
+        <span class="eyebrow">Shipping Contacts</span>
+        <div class="pc-email-string" id="pcShipWrap" style="display:none;">
+          <span class="pc-email-string-text" id="pcShipNames"></span>
+          <button class="icon-btn" id="pcShipCopyBtn" title="Copy shipping contacts" onclick="pcShipCopyNames()">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <button class="icon-btn" title="Manage job contacts" onclick="openModal('proofContacts')">
+            <i class="fa-regular fa-pen"></i>
+          </button>
+        </div>
+
+        <h6>Shipping Distribution</h6>
         <!-- Field tabs + bulk apply -->
         <div class="ship-toolbar">
           <div class="ship-field-tabs-wrap">
@@ -1939,7 +2037,17 @@
 
       <!-- ── PRODUCTION PANEL ── -->
       <div class="tab-panel" id="tab-panel-production">
-
+        <span class="eyebrow">Proofing Contacts</span>
+        <div class="pc-email-string" id="pcProdEmailStringWrap" style="display:none;">
+          <span class="pc-email-string-text" id="pcProdEmailString"></span>
+          <button class="icon-btn" id="pcProdCopyBtn" title="Copy all emails" onclick="pcProdCopyEmails()">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <button class="icon-btn" title="Manage job contacts" onclick="openModal('proofContacts')">
+            <i class="fa-regular fa-pen"></i>
+          </button>
+        </div>
+        <h6 class="section-title">Production Details</h6>
         <button class="add-list-btn" onclick="addDetail()">+ ADD DETAIL</button>
 
         <!-- Detail Card 1 -->
@@ -2020,6 +2128,20 @@
         </div>
 
       </div><!-- /tab-panel-production -->
+
+      <!-- ── BILLING PANEL ── -->
+      <div class="tab-panel" id="tab-panel-billing" style="display:none;">
+        <span class="eyebrow">Billing Contacts</span>
+        <div class="pc-email-string" id="pcBillWrap" style="display:none;">
+          <span class="pc-email-string-text" id="pcBillNames"></span>
+          <button class="icon-btn" id="pcBillCopyBtn" title="Copy billing contacts" onclick="pcBillCopyNames()">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <button class="icon-btn" title="Manage job contacts" onclick="openModal('proofContacts')">
+            <i class="fa-regular fa-pen"></i>
+          </button>
+        </div>
+      </div><!-- /tab-panel-billing -->
 
     </div><!-- /page-content -->
   </div><!-- /main -->
@@ -2428,20 +2550,19 @@
     </div>
   </div>
 
-  <!-- ── Manage Proof Contacts Modal ── -->
+  <!-- ── Manage Job Contacts Modal ── -->
   <div class="modal-overlay" id="modal-proofContacts" onclick="handleOverlayClick(event, 'proofContacts')">
     <div class="modal-panel">
       <div class="modal-header">
-        <span class="modal-title">Manage Proof Contacts</span>
+        <span class="modal-title">Manage Job Contacts</span>
         <button class="icon-btn" onclick="closeModal('proofContacts')"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body" style="padding-bottom: 32px;">
+      <div class="modal-body">
         <div class="form-group">
           <label class="form-label">Add contact</label>
           <div class="pc-combobox" id="pcCombobox">
             <div class="pc-input-wrap">
-              <i class="fa-regular fa-magnifying-glass"
-                style="color:var(--text-tertiary); font-size:var(--fontsize-body-sm); flex-shrink:0;"></i>
+              <i class="fa-regular fa-magnifying-glass pc-search-icon"></i>
               <input id="pcInput" class="pc-input" type="text" placeholder="Search by name or email…" autocomplete="off"
                 oninput="pcOnInput(this.value)" onkeydown="pcOnKeydown(event)" />
             </div>
@@ -2449,14 +2570,16 @@
           </div>
         </div>
 
-        <div class="pc-email-string" id="pcEmailStringWrap" style="display:none;">
-          <span class="pc-email-string-text" id="pcEmailString"></span>
-          <button class="icon-btn" id="pcCopyBtn" title="Copy all emails" onclick="pcCopyEmails()">
-            <i class="fa-regular fa-copy"></i>
-          </button>
-        </div>
-
-        <div id="pcList" class="pc-added-list"></div>
+        <table class="pc-table" id="pcTable" style="display:none;">
+          <thead>
+            <tr>
+              <th class="pc-th-name">Name</th>
+              <th class="pc-th-receives">Receives</th>
+              <th class="pc-th-action"></th>
+            </tr>
+          </thead>
+          <tbody id="pcList"></tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" onclick="closeModal('proofContacts')">Cancel</button>
@@ -2467,8 +2590,8 @@
 
   <!-- ── Manage Time Entries Modal ── -->
   <div class="modal-overlay" id="modal-timeEntries" onclick="handleOverlayClick(event, 'timeEntries')">
-    <div class="modal-panel" style="display:flex; flex-direction:column; overflow:hidden;">
-      <div class="modal-header" style="flex-shrink:0;">
+    <div class="modal-panel modal-scroll">
+      <div class="modal-header">
         <span class="modal-title">Manage Time Entries</span>
         <button class="icon-btn" onclick="closeModal('timeEntries')"><i class="fa-solid fa-xmark"></i></button>
       </div>
@@ -2486,17 +2609,14 @@
       <!-- Add row -->
       <div class="te-add-row" id="teAddRow">
         <div class="te-initials">HP</div>
-        <input class="form-input" type="date" id="teDate" style="font-size:var(--fontsize-body-sm); padding:5px 8px;" />
+        <input class="form-input te-input-sm" type="date" id="teDate" />
         <div class="te-time-wrap">
-          <input class="form-input" type="number" id="teHours" placeholder="HH" min="0" max="23"
-            style="font-size:var(--fontsize-body-sm); padding:5px 6px; width:48px; text-align:center;" />
+          <input class="form-input te-input-time" type="number" id="teHours" placeholder="HH" min="0" max="23" />
           <span class="te-time-sep">:</span>
-          <input class="form-input" type="number" id="teMinutes" placeholder="MM" min="0" max="59"
-            style="font-size:var(--fontsize-body-sm); padding:5px 6px; width:48px; text-align:center;" />
+          <input class="form-input te-input-time" type="number" id="teMinutes" placeholder="MM" min="0" max="59" />
         </div>
-        <input class="form-input" type="text" id="teProofSent" placeholder="Sent proof?"
-          style="font-size:var(--fontsize-body-sm); padding:5px 8px;" />
-        <input class="form-input" type="text" id="teTask" placeholder="Task" style="font-size:var(--fontsize-body-sm); padding:5px 8px;"
+        <input class="form-input te-input-sm" type="text" id="teProofSent" placeholder="Sent proof?" />
+        <input class="form-input te-input-sm" type="text" id="teTask" placeholder="Task"
           onkeydown="if(event.key==='Enter') teAddEntry()" />
         <button class="icon-btn" onclick="teAddEntry()" title="Add entry"><i class="fa-solid fa-plus"></i></button>
       </div>
@@ -2505,52 +2625,47 @@
       <div class="te-list" id="teList">
         <div class="te-entry">
           <div class="te-initials">HP</div>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">12/10/24</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">09:15</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">—</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">Initial layout setup</span>
-          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i
-              class="fa-regular fa-trash-can"></i></button>
+          <span class="te-val">12/10/24</span>
+          <span class="te-val">09:15</span>
+          <span class="te-val-sec">—</span>
+          <span class="te-val">Initial layout setup</span>
+          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
         </div>
         <div class="te-entry">
           <div class="te-initials">HP</div>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">12/12/24</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">14:30</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">Sent proof?</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">Sent PDF proof to Diane</span>
-          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i
-              class="fa-regular fa-trash-can"></i></button>
+          <span class="te-val">12/12/24</span>
+          <span class="te-val">14:30</span>
+          <span class="te-val-sec">Sent proof?</span>
+          <span class="te-val">Sent PDF proof to Diane</span>
+          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
         </div>
         <div class="te-entry">
           <div class="te-initials">HP</div>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">12/16/24</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">10:00</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">—</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">Revisions from client markup</span>
-          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i
-              class="fa-regular fa-trash-can"></i></button>
+          <span class="te-val">12/16/24</span>
+          <span class="te-val">10:00</span>
+          <span class="te-val-sec">—</span>
+          <span class="te-val">Revisions from client markup</span>
+          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
         </div>
         <div class="te-entry">
           <div class="te-initials">HP</div>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">12/18/24</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">08:45</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">Sent proof?</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">Re-proof after revisions</span>
-          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i
-              class="fa-regular fa-trash-can"></i></button>
+          <span class="te-val">12/18/24</span>
+          <span class="te-val">08:45</span>
+          <span class="te-val-sec">Sent proof?</span>
+          <span class="te-val">Re-proof after revisions</span>
+          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
         </div>
         <div class="te-entry">
           <div class="te-initials">HP</div>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">01/06/25</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">11:20</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">—</span>
-          <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">Prepress check &amp; file prep</span>
-          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i
-              class="fa-regular fa-trash-can"></i></button>
+          <span class="te-val">01/06/25</span>
+          <span class="te-val">11:20</span>
+          <span class="te-val-sec">—</span>
+          <span class="te-val">Prepress check &amp; file prep</span>
+          <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
         </div>
       </div>
 
-      <div class="modal-footer" style="flex-shrink:0;">
+      <div class="modal-footer">
         <button class="btn-secondary" onclick="closeModal('timeEntries')">Cancel</button>
         <button class="btn-primary" onclick="saveModal('timeEntries')">Save</button>
       </div>
@@ -3094,27 +3209,97 @@
 
     // ── Proof Contacts combobox ──
     const PC_CONTACTS = [
-      { name: 'Diane Kovach', role: 'Director of Food & Beverage', email: 'd.kovach@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'Marcus Trevino', role: 'General Manager', email: 'm.trevino@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'Susan Cho', role: 'Purchasing Manager', email: 's.cho@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'Robert Ellison', role: 'Event Coordinator', email: 'r.ellison@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'Priya Nair', role: 'Catering Director', email: 'p.nair@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'James Harmon', role: 'Controller', email: 'j.harmon@marriott.com', group: 'Marriott Downtown Cleveland' },
-      { name: 'Claire Fontaine', role: 'VP, Food & Beverage', email: 'c.fontaine@marriott-intl.com', group: 'Marriott International (Management Group)' },
-      { name: 'Derek Ashworth', role: 'SVP, Operations', email: 'd.ashworth@marriott-intl.com', group: 'Marriott International (Management Group)' },
-      { name: 'Mia Solis', role: 'Director, Corporate Procurement', email: 'm.solis@marriott-intl.com', group: 'Marriott International (Management Group)' },
-      { name: 'Trevor Okafor', role: 'VP, Finance', email: 't.okafor@marriott-intl.com', group: 'Marriott International (Management Group)' },
-      { name: 'Naomi Vance', role: 'Corporate Executive Chef', email: 'n.vance@marriott-intl.com', group: 'Marriott International (Management Group)' },
+      { name: 'Diane Kovach',   role: 'Director of Food & Beverage',   email: 'd.kovach@marriott.com',     group: 'Marriott Downtown Cleveland' },
+      { name: 'Marcus Trevino', role: 'General Manager',                email: 'm.trevino@marriott.com',    group: 'Marriott Downtown Cleveland' },
+      { name: 'Susan Cho',      role: 'Purchasing Manager',             email: 's.cho@marriott.com',        group: 'Marriott Downtown Cleveland' },
+      { name: 'Robert Ellison', role: 'Event Coordinator',              email: 'r.ellison@marriott.com',    group: 'Marriott Downtown Cleveland' },
+      { name: 'Priya Nair',     role: 'Catering Director',              email: 'p.nair@marriott.com',       group: 'Marriott Downtown Cleveland' },
+      { name: 'James Harmon',   role: 'Controller',                     email: 'j.harmon@marriott.com',     group: 'Marriott Downtown Cleveland' },
+      { name: 'Claire Fontaine',role: 'VP, Food & Beverage',            email: 'c.fontaine@marriott-intl.com', group: 'Marriott International (Management Group)' },
+      { name: 'Derek Ashworth', role: 'SVP, Operations',                email: 'd.ashworth@marriott-intl.com', group: 'Marriott International (Management Group)' },
+      { name: 'Mia Solis',      role: 'Director, Corporate Procurement',email: 'm.solis@marriott-intl.com', group: 'Marriott International (Management Group)' },
+      { name: 'Trevor Okafor',  role: 'VP, Finance',                    email: 't.okafor@marriott-intl.com', group: 'Marriott International (Management Group)' },
+      { name: 'Naomi Vance',    role: 'Corporate Executive Chef',       email: 'n.vance@marriott-intl.com', group: 'Marriott International (Management Group)' },
     ];
+
+    // pcAdded: Set of emails; pcReceives: email → Set of 'proofs'|'shipping'|'invoices'
     let pcAdded = new Set();
+    const pcReceives = {};
     let pcHighlightIndex = -1;
     let pcFiltered = [];
+
+    const PC_RECEIVES_LABELS = { proofs: 'Proofs', shipping: 'Shipping Notifications', invoices: 'Invoices' };
+
+    function pcReceivesTagsHtml(email) {
+      const rv = pcReceives[email] || new Set();
+      if (!rv.size) return '<span class="pc-receives-none">None</span>';
+      const labels = [...rv].map(r => PC_RECEIVES_LABELS[r]);
+      const text = labels.length > 1 ? labels.slice(0, -1).join(', ') + ' & ' + labels.at(-1) : labels[0];
+      return `<span class="pc-receives-text">${text}</span>`;
+    }
+
+    function pcRenderRow(contact, list) {
+      const email = contact.email;
+      const rv = pcReceives[email] || new Set();
+      const chk = key => rv.has(key) ? 'checked' : '';
+      const row = document.createElement('tr');
+      row.dataset.email = email;
+      row.innerHTML = `
+        <td>
+          <div class="pc-added-info">
+            <span class="pc-added-name">${contact.name}</span>
+            <span class="pc-added-email">${email}</span>
+          </div>
+        </td>
+        <td>
+          <div class="pc-receives-wrap">
+            <div class="pc-receives-trigger" onclick="pcToggleReceives(event, this)">
+              <span class="pc-receives-tags">${pcReceivesTagsHtml(email)}</span>
+              <i class="fa-regular fa-angle-down pc-chevron"></i>
+            </div>
+            <div class="pc-receives-menu" style="display:none;">
+              <label class="pc-receives-opt"><input type="checkbox" value="proofs" ${chk('proofs')} onchange="pcOnReceiveChange(this,'${email}')"> Proofs</label>
+              <label class="pc-receives-opt"><input type="checkbox" value="shipping" ${chk('shipping')} onchange="pcOnReceiveChange(this,'${email}')"> Shipping Notifications</label>
+              <label class="pc-receives-opt"><input type="checkbox" value="invoices" ${chk('invoices')} onchange="pcOnReceiveChange(this,'${email}')"> Invoices</label>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="icon-btn" title="Remove" onclick="pcRemove(this,'${email}')"><i class="fa-regular fa-trash-can"></i></button>
+        </td>
+      `;
+      list.appendChild(row);
+    }
+
+    function pcToggleReceives(e, trigger) {
+      e.stopPropagation();
+      const menu = trigger.nextElementSibling;
+      const wasOpen = menu.style.display !== 'none';
+      document.querySelectorAll('.pc-receives-menu').forEach(m => m.style.display = 'none');
+      document.querySelectorAll('.pc-row-open').forEach(r => r.classList.remove('pc-row-open'));
+      if (!wasOpen) {
+        menu.style.display = 'block';
+        trigger.closest('tr')?.classList.add('pc-row-open');
+      }
+    }
+
+    function pcOnReceiveChange(cb, email) {
+      if (!pcReceives[email]) pcReceives[email] = new Set();
+      cb.checked ? pcReceives[email].add(cb.value) : pcReceives[email].delete(cb.value);
+      const row = cb.closest('tr');
+      if (row) row.querySelector('.pc-receives-tags').innerHTML = pcReceivesTagsHtml(email);
+      pcUpdateAllStrings();
+    }
+
+    function pcShowListHeader() {
+      const tbl = document.getElementById('pcTable');
+      if (tbl) tbl.style.display = pcAdded.size ? '' : 'none';
+    }
 
     function pcOnInput(val) {
       const q = val.trim().toLowerCase();
       const dropdown = document.getElementById('pcDropdown');
       if (!q) { dropdown.style.display = 'none'; return; }
-
       pcFiltered = PC_CONTACTS.filter(c =>
         !pcAdded.has(c.email) &&
         (c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q) || c.role.toLowerCase().includes(q))
@@ -3130,11 +3315,9 @@
         dropdown.style.display = 'block';
         return;
       }
-      // Group by source
       const groups = {};
       results.forEach(c => { (groups[c.group] = groups[c.group] || []).push(c); });
-      let html = '';
-      let globalIdx = 0;
+      let html = '', globalIdx = 0;
       Object.entries(groups).forEach(([group, contacts], gi) => {
         if (gi > 0) html += '<div class="pc-dd-divider"></div>';
         html += `<div class="pc-dd-group-label">${group}</div>`;
@@ -3172,72 +3355,97 @@
       const contact = pcFiltered[idx];
       if (!contact || pcAdded.has(contact.email)) return;
       pcAdded.add(contact.email);
-      // Add row to list
-      const list = document.getElementById('pcList');
-      const row = document.createElement('div');
-      row.className = 'pc-added-row';
-      row.dataset.email = contact.email;
-      row.innerHTML = `
-        <div class="pc-added-info">
-          <span class="pc-added-name">${contact.name}</span>
-          <span class="pc-added-email">${contact.email}</span>
-        </div>
-        <button class="icon-btn" title="Remove" onclick="pcRemove(this, '${contact.email}')"><i class="fa-regular fa-trash-can"></i></button>
-      `;
-      list.appendChild(row);
-      // Reset input
+      pcReceives[contact.email] = new Set(['proofs']);
+      pcRenderRow(contact, document.getElementById('pcList'));
+      pcShowListHeader();
       document.getElementById('pcInput').value = '';
       document.getElementById('pcDropdown').style.display = 'none';
       pcFiltered = [];
       pcHighlightIndex = -1;
-      pcUpdateEmailString();
+      pcUpdateAllStrings();
     }
 
     function pcRemove(btn, email) {
-      btn.closest('.pc-added-row').remove();
+      btn.closest('tr').remove();
       pcAdded.delete(email);
-      pcUpdateEmailString();
+      delete pcReceives[email];
+      pcShowListHeader();
+      pcUpdateAllStrings();
     }
 
-    // Pre-seed contacts
-    ['d.kovach@marriott.com', 'm.trevino@marriott.com', 'c.fontaine@marriott-intl.com'].forEach(email => {
+    // Pre-seed contacts with varied receives for demo
+    [
+      { email: 'd.kovach@marriott.com',     receives: ['proofs'] },
+      { email: 'm.trevino@marriott.com',    receives: ['proofs', 'shipping'] },
+      { email: 'c.fontaine@marriott-intl.com', receives: ['proofs', 'invoices'] },
+    ].forEach(({ email, receives }) => {
       const contact = PC_CONTACTS.find(c => c.email === email);
       if (!contact) return;
       pcAdded.add(email);
-      const list = document.getElementById('pcList');
-      const row = document.createElement('div');
-      row.className = 'pc-added-row';
-      row.dataset.email = email;
-      row.innerHTML = `
-        <div class="pc-added-info">
-          <span class="pc-added-name">${contact.name}</span>
-          <span class="pc-added-email">${email}</span>
-        </div>
-        <button class="icon-btn" title="Remove" onclick="pcRemove(this, '${email}')"><i class="fa-regular fa-trash-can"></i></button>
-      `;
-      list.appendChild(row);
+      pcReceives[email] = new Set(receives);
+      pcRenderRow(contact, document.getElementById('pcList'));
     });
-    pcUpdateEmailString();
+    pcShowListHeader();
+    pcUpdateAllStrings();
 
-    function pcUpdateEmailString() {
-      const emails = [...pcAdded];
-      const wrap = document.getElementById('pcEmailStringWrap');
-      const el = document.getElementById('pcEmailString');
-      wrap.style.display = emails.length ? '' : 'none';
-      el.textContent = emails.join(', ');
+    function pcUpdateAllStrings() {
+      // Production: proof contacts' emails
+      const proofEmails = [...pcAdded].filter(e => pcReceives[e]?.has('proofs'));
+      const prodWrap = document.getElementById('pcProdEmailStringWrap');
+      const prodEl   = document.getElementById('pcProdEmailString');
+      if (prodWrap) prodWrap.style.display = proofEmails.length ? '' : 'none';
+      if (prodEl)   prodEl.textContent = proofEmails.join(', ');
+
+      // Shipping: shipping contacts' names
+      const shipNames = [...pcAdded].filter(e => pcReceives[e]?.has('shipping'))
+        .map(e => PC_CONTACTS.find(c => c.email === e)?.name).filter(Boolean);
+      const shipWrap = document.getElementById('pcShipWrap');
+      const shipEl   = document.getElementById('pcShipNames');
+      if (shipWrap) shipWrap.style.display = shipNames.length ? '' : 'none';
+      if (shipEl)   shipEl.textContent = shipNames.join(', ');
+
+      // Billing: invoice contacts' names
+      const billNames = [...pcAdded].filter(e => pcReceives[e]?.has('invoices'))
+        .map(e => PC_CONTACTS.find(c => c.email === e)?.name).filter(Boolean);
+      const billWrap = document.getElementById('pcBillWrap');
+      const billEl   = document.getElementById('pcBillNames');
+      if (billWrap) billWrap.style.display = billNames.length ? '' : 'none';
+      if (billEl)   billEl.textContent = billNames.join(', ');
     }
 
-    function pcCopyEmails() {
-      const text = document.getElementById('pcEmailString').textContent;
+    function pcProdCopyEmails() {
+      const text = document.getElementById('pcProdEmailString').textContent;
       navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('pcCopyBtn');
-        btn.innerHTML = '<i class="fa-solid fa-check" style="color:var(--status-success-fg)"></i>';
+        const btn = document.getElementById('pcProdCopyBtn');
+        btn.innerHTML = '<i class="fa-solid fa-check icon-success"></i>';
         setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1800);
       });
     }
 
-    // Close dropdown on outside click
+    function pcShipCopyNames() {
+      const text = document.getElementById('pcShipNames').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('pcShipCopyBtn');
+        btn.innerHTML = '<i class="fa-solid fa-check icon-success"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1800);
+      });
+    }
+
+    function pcBillCopyNames() {
+      const text = document.getElementById('pcBillNames').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('pcBillCopyBtn');
+        btn.innerHTML = '<i class="fa-solid fa-check icon-success"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1800);
+      });
+    }
+
+    // Close dropdowns on outside click
     document.addEventListener('mousedown', e => {
+      if (!e.target.closest('.pc-receives-wrap')) {
+        document.querySelectorAll('.pc-receives-menu').forEach(m => m.style.display = 'none');
+        document.querySelectorAll('.pc-row-open').forEach(r => r.classList.remove('pc-row-open'));
+      }
       if (!document.getElementById('pcCombobox')?.contains(e.target)) {
         const dd = document.getElementById('pcDropdown');
         if (dd) dd.style.display = 'none';
@@ -3267,10 +3475,10 @@
 
       row.innerHTML = `
         <div class="te-initials">HP</div>
-        <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">${displayDate || '—'}</span>
-        <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">${displayTime}</span>
-        <span style="font-size:var(--fontsize-body-sm); color:var(--text-secondary);">${proof || '—'}</span>
-        <span style="font-size:var(--fontsize-body-sm); color:var(--text-primary);">${task || '—'}</span>
+        <span class="te-val">${displayDate || '—'}</span>
+        <span class="te-val">${displayTime}</span>
+        <span class="te-val-sec">${proof || '—'}</span>
+        <span class="te-val">${task || '—'}</span>
         <button class="icon-btn" title="Remove" onclick="this.closest('.te-entry').remove()"><i class="fa-regular fa-trash-can"></i></button>
       `;
       list.appendChild(row);
