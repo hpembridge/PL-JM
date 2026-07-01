@@ -67,6 +67,10 @@
       opacity: 0.8;
     }
 
+    .breadcrumb a i {
+      margin-right: 4px;
+    }
+
     .breadcrumb .sep {
       color: var(--text-tertiary);
     }
@@ -182,6 +186,25 @@
       justify-content: space-between;
     }
 
+    .inner-row-col {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Job header layout helpers */
+    .job-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .job-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
     /* mirrors .acct-info */
     .job-info {
       display: flex;
@@ -242,6 +265,7 @@
       background: var(--interactive-bg-subtle);
       border: solid 1px var(--interactive-default);
       color: var(--text-interactive);
+      cursor: pointer;
       transition: opacity 0.15s;
     }
 
@@ -507,6 +531,12 @@
       background: var(--interactive-default);
       color: var(--color-white);
       border-color: var(--interactive-default);
+    }
+
+    .ship-bulk-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .ship-bulk-wrap {
@@ -895,6 +925,10 @@
       gap: 2px 0;
     }
 
+    .check-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     .check-grid label {
       display: flex;
       align-items: center;
@@ -951,6 +985,14 @@
       gap: 6px;
     }
 
+    .check-subgroup + .check-subgroup {
+      margin-top: 16px;
+    }
+
+    .bindery-board-action {
+      margin-top: 16px;
+    }
+
     .check-subgroup-label {
       font-size: var(--fontsize-label);
       font-weight: var(--font-weight-bold);
@@ -981,29 +1023,17 @@
       border-radius: var(--border-radius-full);
       font-size: var(--fontsize-body-sm);
       font-weight: var(--font-weight-semibold);
-      cursor: pointer;
+      cursor: default;
       border: 1px solid var(--border-subtle);
       background: var(--bg-muted);
       color: var(--text-tertiary);
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
       user-select: none;
-    }
-
-    .section-pill:hover {
-      border-color: var(--border-default);
-      color: var(--text-secondary);
-      background: var(--bg-subtle);
     }
 
     .section-pill.active {
       background: var(--interactive-bg-subtle);
       border-color: var(--interactive-default);
       color: var(--interactive-default);
-    }
-
-    .section-pill.active:hover {
-      background: var(--color-patina-150);
-      filter: brightness(0.96);
     }
 
     /* ── READ-ONLY DETAIL SECTIONS ── */
@@ -1103,6 +1133,16 @@
 
     .addon-fields.collapsed {
       display: none;
+    }
+
+    /* Section label following addon-fields gets top spacing */
+    .addon-fields + .section-label-sm {
+      margin-top: 8px;
+    }
+
+    /* Corner size reveal */
+    #cornerSize {
+      margin-top: 4px;
     }
 
     /* toggle rows — matches customer-management */
@@ -1710,6 +1750,10 @@
       gap: 8px;
     }
 
+    .insert-size-fields .icon-btn {
+      margin-bottom: 1px;
+    }
+
     .insert-sizes-header span:nth-child(2) {
       grid-column: 2 / 4;
     }
@@ -1844,6 +1888,93 @@
       gap: 8px;
     }
 
+    .modal-footer-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Trello confirm modal text */
+    .trello-confirm-heading {
+      font-size: var(--fontsize-body-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    .trello-confirm-body {
+      font-size: var(--fontsize-body-sm);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Detail tab filter select */
+    .detail-filter-select {
+      width: auto;
+      min-width: 40px;
+      flex-shrink: 0;
+    }
+
+    /* Textarea resize */
+    textarea.form-input {
+      resize: vertical;
+    }
+
+    /* ── DETAIL EDIT MODAL TABS ── */
+    .detail-edit-tabs {
+      display: flex;
+      flex-shrink: 0;
+            border-bottom: 1px solid var(--border-default);
+
+    }
+
+    .detail-edit-tab {
+      padding: 10px 16px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      font-size: var(--fontsize-body-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-tertiary);
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s, background 0.15s;
+      flex: 1;
+    }
+
+    .detail-edit-tab:hover {
+      color: var(--text-interactive);
+    }
+
+    .detail-edit-tab.active {
+      color: var(--interactive-default);
+      background: var(--interactive-bg-subtle);
+      border-radius: 8px 8px 0px 0px;
+      border: solid 1px var(--interactive-hover);
+      border-bottom: none;
+    }
+
+    .detail-edit-panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .detail-edit-panel.active {
+      display: flex;
+    }
+
+    /* Two-button group in card header */
+    .detail-card-actions {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    /* No divider when header is the only card child */
+    .detail-card .detail-card-header:last-child {
+      border-bottom: none;
+    }
+
     /* scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
@@ -1866,6 +1997,8 @@
     <!-- ── TOP BAR ── -->
     <div class="topbar">
       <div class="breadcrumb type-body-sm">
+        <a><i class="fa-solid fa-folder"></i>Jobs</a>
+        <span class="sep">›</span>
         <a>(2030) Pizza Hut Corporation</a>
         <span class="sep">›</span>
         <a>(13730) Pizza Hut AIGP</a>
@@ -1895,22 +2028,24 @@
     <div class="page-content">
       <!-- ── JOB HEADER (account card style) ── -->
       <div class="job-header-card">
-        <div class="inner-row" style="flex-direction:column; gap:6px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-            <h5 class="job-number">232323</h5>
+        <div class="inner-row inner-row-col">
+          <div class="job-header-top">
+            <div class="job-title-row">
+              <h5 class="job-number">232323</h5>
+              <div class="job-name type-body-md">2018 Standard Menu Single Fold Jan 2018 Ws</div>
+            </div>
             <button class="icon-btn" title="Edit job information" onclick="openModal('editJob')">
               <i class="fa-solid fa-pen"></i>
             </button>
           </div>
-          <div class="job-name type-body-md">2018 Standard Menu Single Fold Jan 2018 Ws</div>
           <div class="job-tags">
               <span class="pill">New Job</span>
               <span class="pill">Printing</span>
               <span class="pill">Received 12/08/17</span>
             </div>
         </div>
-        <div class="inner-row border-top" style="justify-content:space-between; align-items:center;">
-          <div style="display:flex; gap:8px;">
+        <div class="inner-row border-top">
+          <div class="job-actions">
             <button class="btn-secondary btn-secondary-sm">View Linked Jobs</button>
 <button class="btn-secondary btn-secondary-sm" onclick="openModal('timeEntries')">Manage Time
               Entries</button>
@@ -1918,7 +2053,7 @@
               Trello</button>
           </div>
           <span class="pill status-pill" id="statusPill" title="Bindery On Cart" onclick="openModal('scanHistory')"
-            style="cursor:pointer;">STATUS: IN PRODUCTION</span>
+            >STATUS: IN PRODUCTION</span>
         </div>
       </div>
 
@@ -1930,10 +2065,10 @@
       </div>
 
       <!-- ── SHIPPING PANEL ── -->
-      <div class="tab-panel" id="tab-panel-shipping" style="display:none;">
+      <div class="tab-panel hidden-section" id="tab-panel-shipping">
 
         <span class="eyebrow">Shipping Contacts</span>
-        <div class="pc-email-string" id="pcShipWrap" style="display:none;">
+        <div class="pc-email-string hidden-section" id="pcShipWrap">
           <span class="pc-email-string-text" id="pcShipNames"></span>
           <button class="icon-btn" id="pcShipCopyBtn" title="Copy shipping contacts" onclick="pcShipCopyNames()">
             <i class="fa-regular fa-copy"></i>
@@ -1958,7 +2093,7 @@
           </div>
           <div class="ship-bulk-wrap">
             <span class="ship-bulk-label" id="shipBulkLabel">APPLY TO ALL CHECKED (0 of 10 checked)</span>
-            <div style="display:flex;align-items:center;gap:10px;">
+            <div class="ship-bulk-controls">
               <div class="ship-stepper">
                 <button class="ship-stepper-btn" onclick="stepBulk(-1)">−</button>
                 <input class="ship-stepper-val" id="bulkQtyInput" type="number" value="0" min="0"
@@ -2038,7 +2173,7 @@
       <!-- ── PRODUCTION PANEL ── -->
       <div class="tab-panel" id="tab-panel-production">
         <span class="eyebrow">Proofing Contacts</span>
-        <div class="pc-email-string" id="pcProdEmailStringWrap" style="display:none;">
+        <div class="pc-email-string hidden-section" id="pcProdEmailStringWrap">
           <span class="pc-email-string-text" id="pcProdEmailString"></span>
           <button class="icon-btn" id="pcProdCopyBtn" title="Copy all emails" onclick="pcProdCopyEmails()">
             <i class="fa-regular fa-copy"></i>
@@ -2048,7 +2183,7 @@
           </button>
         </div>
         <h6 class="section-title">Production Details</h6>
-        <button class="add-list-btn" onclick="addDetail()">+ ADD DETAIL</button>
+        <button class="add-list-btn" onclick="addDetail()">+ ADD JOB DETAIL</button>
 
         <!-- Detail Card 1 -->
         <div class="detail-card" id="detail-1">
@@ -2057,70 +2192,82 @@
               <span class="detail-num">1</span>
               2018 Standard Menu Single Fold
             </div>
-            <div class="detail-pills">
-              <button class="section-pill active" onclick="toggleDetailSection(this, 'ds-general-1')">General</button>
-              <button class="section-pill active" onclick="toggleDetailSection(this, 'ds-paper-1')">Paper</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-print-1')">Print Finishing</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-bindery-1')">Bindery
-                Finishing</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-boards-1')">Interior Boards</button>
+            <div class="detail-pills" id="detail-pills-1">
+              <span class="section-pill active">General</span>
+              <span class="section-pill active">Paper</span>
             </div>
-            <button class="icon-btn" title="Remove detail" onclick="this.closest('.detail-card').remove()"><i
-                class="fa-regular fa-trash-can"></i></button>
+            <div class="detail-card-actions">
+              <button class="icon-btn" title="Edit detail" onclick="openDetailEdit('detail-1')">
+                <i class="fa-regular fa-pen"></i>
+              </button>
+              <button class="icon-btn" title="Remove detail" onclick="this.closest('.detail-card').remove()">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
           </div>
           <div class="detail-card-body">
             <!-- General -->
             <div class="detail-section" id="ds-general-1">
               <div class="detail-section-header">
                 <span class="detail-section-title">General</span>
-                <button class="icon-btn" title="Edit General" onclick="openModal('general')"><i
-                    class="fa-regular fa-pen"></i></button>
               </div>
               <div class="detail-fields">
-                <div class="detail-field-row"><span class="detail-field-label">Quantity</span><span
-                    class="detail-field-value">200</span></div>
-                <div class="detail-field-row"><span class="detail-field-label">Panels / Sides</span><span
-                    class="detail-field-value">1 panel · 2 sides</span></div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label">Quantity</span>
+                  <span class="detail-field-value">200</span>
+                </div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label"># Panels</span>
+                  <span class="detail-field-value">1</span>
+                </div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label"># Sides</span>
+                  <span class="detail-field-value">2</span>
+                </div>
               </div>
             </div>
             <!-- Paper -->
             <div class="detail-section" id="ds-paper-1">
               <div class="detail-section-header">
                 <span class="detail-section-title">Paper</span>
-                <button class="icon-btn" title="Edit Paper" onclick="openModal('paper')"><i
-                    class="fa-regular fa-pen"></i></button>
               </div>
               <div class="detail-fields">
-                <div class="detail-field-row"><span class="detail-field-label">Size</span><span
-                    class="detail-field-value">13 × 19</span></div>
-                <div class="detail-field-row"><span class="detail-field-label">Stock</span><span
-                    class="detail-field-value">14pt durapoly · white</span></div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label">Size</span>
+                  <span class="detail-field-value">13 x 19</span>
+                </div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label">Type</span>
+                  <span class="detail-field-value">durapoly</span>
+                </div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label">Weight</span>
+                  <span class="detail-field-value">14pt</span>
+                </div>
+                <div class="detail-field-row">
+                  <span class="detail-field-label">Color</span>
+                  <span class="detail-field-value">white</span>
+                </div>
               </div>
             </div>
-            <!-- Print Finishing (off by default) -->
+            <!-- Print Finishing -->
             <div class="detail-section hidden-section" id="ds-print-1">
               <div class="detail-section-header">
                 <span class="detail-section-title">Print Finishing</span>
-                <button class="icon-btn" title="Edit Print Finishing" onclick="openModal('print')"><i
-                    class="fa-regular fa-pen"></i></button>
               </div>
               <div class="detail-empty-prompt">No print finishing specified.</div>
             </div>
-            <!-- Bindery Finishing (off by default) -->
+            <!-- Bindery Finishing -->
             <div class="detail-section hidden-section" id="ds-bindery-1">
               <div class="detail-section-header">
                 <span class="detail-section-title">Bindery Finishing</span>
-                <button class="icon-btn" title="Edit Bindery" onclick="openModal('bindery')"><i
-                    class="fa-regular fa-pen"></i></button>
               </div>
               <div class="detail-empty-prompt">No bindery finishing specified.</div>
             </div>
-            <!-- Interior Boards (off by default) -->
+            <!-- Interior Boards -->
             <div class="detail-section hidden-section" id="ds-boards-1">
               <div class="detail-section-header">
                 <span class="detail-section-title">Interior Boards</span>
-                <button class="icon-btn" title="Edit Interior Boards" onclick="openModal('boards')"><i
-                    class="fa-regular fa-pen"></i></button>
               </div>
               <div class="detail-empty-prompt">No interior boards specified.</div>
             </div>
@@ -2130,9 +2277,9 @@
       </div><!-- /tab-panel-production -->
 
       <!-- ── BILLING PANEL ── -->
-      <div class="tab-panel" id="tab-panel-billing" style="display:none;">
+      <div class="tab-panel hidden-section" id="tab-panel-billing">
         <span class="eyebrow">Billing Contacts</span>
-        <div class="pc-email-string" id="pcBillWrap" style="display:none;">
+        <div class="pc-email-string hidden-section" id="pcBillWrap">
           <span class="pc-email-string-text" id="pcBillNames"></span>
           <button class="icon-btn" id="pcBillCopyBtn" title="Copy billing contacts" onclick="pcBillCopyNames()">
             <i class="fa-regular fa-copy"></i>
@@ -2146,337 +2293,291 @@
     </div><!-- /page-content -->
   </div><!-- /main -->
 
-  <!-- ── MODAL: General Info ── -->
-  <div class="modal-overlay" id="modal-general" onclick="handleOverlayClick(event, 'general')">
+  <!-- ── MODAL: Detail Edit (tabbed) ── -->
+  <div class="modal-overlay" id="modal-detailEdit" onclick="handleOverlayClick(event, 'detailEdit')">
     <div class="modal-panel">
       <div class="modal-header">
-        <span class="modal-title">General Info</span>
-        <button class="modal-close" onclick="closeModal('general')" title="Close">×</button>
+        <span class="modal-title" id="detailEditTitle">Edit Detail</span>
+        <button class="icon-btn" onclick="closeModal('detailEdit')"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Description</label>
-          <input class="form-input" type="text" value="2018 Standard Menu Single Fold Jan 2018 Ws" />
-        </div>
-        <div class="form-row form-row-3 form-group">
-          <div>
-            <label class="form-label">Quantity</label>
-            <input class="form-input" type="number" value="200" />
-          </div>
-          <div>
-            <label class="form-label"># Panels</label>
-            <input class="form-input" type="number" value="1" />
-          </div>
-          <div>
-            <label class="form-label"># Sides</label>
-            <input class="form-input" type="number" value="2" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Size Desc</label>
-          <input class="form-input" type="text" />
-        </div>
-        <div>
-          <label class="form-label">Menu Size</label>
-          <input class="form-input" type="text" />
-        </div>
-        <div>
-          <label class="form-label">Insert Size</label>
-          <input class="form-input" type="text" />
-        </div>
-        <div class="form-group check-grid" style="grid-template-columns: repeat(2, 1fr);">
-          <label><input type="checkbox" /> Show Pre-Press Box</label>
-          <label><input type="checkbox" /> Fixed Quantity (per order)</label>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal('general')">Cancel</button>
-        <button class="btn-primary" onclick="saveModal('general')">Save</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── MODAL: Paper Info ── -->
-  <div class="modal-overlay" id="modal-paper" onclick="handleOverlayClick(event, 'paper')">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <span class="modal-title">Paper Info</span>
-        <button class="modal-close" onclick="closeModal('paper')" title="Close">×</button>
-      </div>
+      
+
       <div class="modal-body">
-        <div class="form-row form-row-2 form-group">
-          <div>
-            <label class="form-label">Size</label>
-            <input class="form-input" type="text" value="13 x 19" />
+        <div class="detail-edit-tabs">
+        <button class="detail-edit-tab active" data-tab="general" onclick="switchDetailTab(this, 'general')">General</button>
+        <button class="detail-edit-tab" data-tab="paper" onclick="switchDetailTab(this, 'paper')">Paper</button>
+        <button class="detail-edit-tab" data-tab="print" onclick="switchDetailTab(this, 'print')">Print Finishing</button>
+        <button class="detail-edit-tab" data-tab="bindery" onclick="switchDetailTab(this, 'bindery')">Bindery Finishing</button>
+        <button class="detail-edit-tab" data-tab="boards" onclick="switchDetailTab(this, 'boards')">Interior Boards</button>
+      </div>
+        <!-- General -->
+        <div class="detail-edit-panel active" id="dep-general">
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <input class="form-input" type="text" value="2018 Standard Menu Single Fold Jan 2018 Ws" />
           </div>
-          <div>
-            <label class="form-label">Type</label>
-            <input class="form-input" type="text" value="durapoly" />
+          <div class="form-row form-row-3 form-group">
+            <div>
+              <label class="form-label">Quantity</label>
+              <input class="form-input" type="number" value="200" />
+            </div>
+            <div>
+              <label class="form-label"># Panels</label>
+              <input class="form-input" type="number" value="1" />
+            </div>
+            <div>
+              <label class="form-label"># Sides</label>
+              <input class="form-input" type="number" value="2" />
+            </div>
           </div>
-        </div>
-        <div class="form-row form-row-2 form-group">
-          <div>
-            <label class="form-label">Weight</label>
-            <input class="form-input" type="text" value="14pt" />
-          </div>
-          <div>
-            <label class="form-label">Other</label>
+          <div class="form-group">
+            <label class="form-label">Size Desc</label>
             <input class="form-input" type="text" />
           </div>
+          <div class="form-group">
+            <label class="form-label">Menu Size</label>
+            <input class="form-input" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Insert Size</label>
+            <input class="form-input" type="text" />
+          </div>
+          <div class="form-group check-grid check-grid-2">
+            <label><input type="checkbox" /> Show Pre-Press Box</label>
+            <label><input type="checkbox" /> Fixed Quantity (per order)</label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Color</label>
-          <input class="form-input" type="text" value="white" />
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal('paper')">Cancel</button>
-        <button class="btn-primary" onclick="saveModal('paper')">Save</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── MODAL: Print Finishing ── -->
-  <div class="modal-overlay" id="modal-print" onclick="handleOverlayClick(event, 'print')">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <span class="modal-title">Print Finishing</span>
-        <button class="modal-close" onclick="closeModal('print')" title="Close">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="toggle-row" onclick="toggleAddon('lam', this)">
-          <span class="toggle-label">Lamination</span>
-          <div class="toggle"></div>
-        </div>
-        <div class="addon-fields collapsed" id="lam">
-          <div class="form-row form-row-2">
+        <!-- Paper -->
+        <div class="detail-edit-panel" id="dep-paper">
+          <div class="form-row form-row-2 form-group">
             <div>
-              <label class="form-label">Lamination</label>
-              <select class="form-select">
-                <option value="">—</option>
-                <option>Gloss</option>
-                <option>Matte</option>
-                <option>Soft-Touch</option>
-              </select>
+              <label class="form-label">Size</label>
+              <input class="form-input" type="text" value="13 x 19" />
             </div>
             <div>
-              <label class="form-label">Thickness</label>
-              <select class="form-select">
-                <option value="">—</option>
-                <option>1.5 mil</option>
-                <option>3 mil</option>
-                <option>5 mil</option>
-              </select>
+              <label class="form-label">Type</label>
+              <input class="form-input" type="text" value="durapoly" />
             </div>
           </div>
-          <div class="form-row form-row-2">
+          <div class="form-row form-row-2 form-group">
             <div>
-              <label class="form-label">Lam Type</label>
-              <select class="form-select">
-                <option value="">—</option>
-                <option>Single</option>
-                <option>Double</option>
-              </select>
+              <label class="form-label">Weight</label>
+              <input class="form-input" type="text" value="14pt" />
             </div>
             <div>
               <label class="form-label">Other</label>
               <input class="form-input" type="text" />
             </div>
           </div>
-        </div>
-        <div class="toggle-row" onclick="toggleAddon('uv', this)">
-          <span class="toggle-label">UV Coat</span>
-          <div class="toggle"></div>
-        </div>
-        <div class="addon-fields collapsed" id="uv">
-          <div>
-            <label class="form-label">UV</label>
-            <select class="form-select">
-              <option value="">—</option>
-              <option>Gloss</option>
-              <option>Matte</option>
-              <option>Spot</option>
-            </select>
-          </div>
-        </div>
-        <div class="section-label-sm" style="margin-top:8px;">Operations</div>
-        <div class="check-grid">
-          <label><input type="checkbox" /> Perf</label>
-          <label><input type="checkbox" /> Drill</label>
-          <label><input type="checkbox" /> Scored</label>
-          <label><input type="checkbox" /> Sew</label>
-          <label><input type="checkbox" /> Stapled</label>
-          <label><input type="checkbox" /> Folded</label>
-          <label><input type="checkbox" /> Collated</label>
-          <label><input type="checkbox" /> Spiraled</label>
-          <label><input type="checkbox" /> Die Cut</label>
-          <label><input type="checkbox" /> Tab Cut</label>
-          <label>
-            <input type="checkbox" id="roundCornersChk" onchange="toggleCornerSize(this)" />
-            Round Corners
-          </label>
-        </div>
-        <div class="addon-fields collapsed" id="cornerSize" style="margin-top:4px;">
-          <label class="form-label">Corner Size</label>
-          <input class="form-input" type="text" placeholder='e.g. 1/4"' />
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal('print')">Cancel</button>
-        <button class="btn-primary" onclick="saveModal('print')">Save</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── MODAL: Bindery Finishing ── -->
-  <div class="modal-overlay" id="modal-bindery" onclick="handleOverlayClick(event, 'bindery')">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <span class="modal-title">Bindery Finishing</span>
-        <button class="modal-close" onclick="closeModal('bindery')" title="Close">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="check-subgroup">
-          <div class="check-subgroup-label">Decoration</div>
-          <div class="check-grid">
-            <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Emboss</label>
-            <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Logojet</label>
-            <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Deboss</label>
-            <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Laser
-              Engrave</label>
-            <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Flat Stamp</label>
-          </div>
-          <div class="addon-fields collapsed" id="decorationColor">
+          <div class="form-group">
             <label class="form-label">Color</label>
-            <input class="form-input" type="text" />
+            <input class="form-input" type="text" value="white" />
           </div>
         </div>
-        <div class="check-subgroup" style="margin-top:16px;">
-          <div class="check-subgroup-label">Binding Type</div>
-          <div class="check-grid">
-            <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Bands</label>
-            <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Ring Binder</label>
-            <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Cords</label>
-            <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> ScrewPosts</label>
-            <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Slide-In Pocket</label>
-            <label><input type="checkbox" class="binding-chk" id="clipChk"
-                onchange="onBindingChange(); onClipChange(this)" /> Clip</label>
-          </div>
-          <div class="addon-fields collapsed" id="clipColor">
-            <label class="form-label">Clip Color</label>
-            <select class="form-select">
-              <option value="">—</option>
-              <option>Black</option>
-              <option>Silver</option>
-              <option>Gold</option>
-            </select>
-          </div>
-          <div class="addon-fields collapsed" id="bindingDesc">
-            <label class="form-label">Binding Description</label>
-            <input class="form-input" type="text" />
-          </div>
-        </div>
-        <div style="margin-top:16px;">
-          <button class="btn-add-sub">
-            <i class="fa-solid fa-plus"></i> Interior Boards
-          </button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal('bindery')">Cancel</button>
-        <button class="btn-primary" onclick="saveModal('bindery')">Save</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── MODAL: Interior Boards ── -->
-  <div class="modal-overlay" id="modal-boards" onclick="handleOverlayClick(event, 'boards')">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <span class="modal-title">Interior Boards</span>
-        <button class="modal-close" onclick="closeModal('boards')" title="Close">×</button>
-      </div>
-      <div class="modal-body">
-
-        <!-- Insert Details -->
-        <div class="boards-section">
-          <div class="boards-section-header">
-            <span class="boards-section-title">Insert Details</span>
+        <!-- Print Finishing -->
+        <div class="detail-edit-panel" id="dep-print">
+          <div class="toggle-row" onclick="toggleAddon('lam', this)">
+            <span class="toggle-label">Lamination</span>
+            <div class="toggle"></div>
           </div>
-          <div class="boards-section-body">
-            <div class="insert-sizes-header">
-              <span></span>
-              <span>Insert Size(s)</span>
-              <span>Quantity</span>
-            </div>
-            <div id="insertSizeList">
-              <div class="insert-size-block" data-insert="1">
-                <div class="insert-size-fields">
-                  <span class="insert-row-num">1</span>
-                  <div>
-                    <label class="form-label">Width</label>
-                    <input class="form-input" type="text" min="0" />
-                  </div>
-                  <div>
-                    <label class="form-label">Height</label>
-                    <input class="form-input" type="text" min="0" />
-                  </div>
-                  <div>
-                    <label class="form-label">Inserts</label>
-                    <input class="form-input" type="number" value="0" min="0" />
-                  </div>
-                  <div>
-                    <label class="form-label">Carriers</label>
-                    <input class="form-input" type="number" value="0" min="0" />
-                  </div>
-                  <button class="icon-btn" title="Remove" onclick="removeInsertSize(this)" style="margin-bottom:1px;">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                </div>
+          <div class="addon-fields collapsed" id="lam">
+            <div class="form-row form-row-2">
+              <div>
+                <label class="form-label">Lamination</label>
+                <select class="form-select">
+                  <option value="">—</option>
+                  <option>Gloss</option>
+                  <option>Matte</option>
+                  <option>Soft-Touch</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Thickness</label>
+                <select class="form-select">
+                  <option value="">—</option>
+                  <option>1.5 mil</option>
+                  <option>3 mil</option>
+                  <option>5 mil</option>
+                </select>
               </div>
             </div>
-            <button class="btn-add-sub" onclick="addInsertSize()">
-              <i class="fa-solid fa-plus"></i> Add Insert Size
-            </button>
-          </div>
-        </div>
-
-        <!-- Board Details -->
-        <div class="boards-section">
-          <div class="boards-section-header">
-            <span class="boards-section-title">Board Details</span>
-            <div class="seg-toggle" id="boardSegToggle">
-              <button class="seg-toggle-btn" onclick="selectBoardType('corners', this)">Corners</button>
-              <button class="seg-toggle-btn" onclick="selectBoardType('tabs', this)">Tabs</button>
+            <div class="form-row form-row-2">
+              <div>
+                <label class="form-label">Lam Type</label>
+                <select class="form-select">
+                  <option value="">—</option>
+                  <option>Single</option>
+                  <option>Double</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Other</label>
+                <input class="form-input" type="text" />
+              </div>
             </div>
           </div>
-          <div class="boards-section-body">
-            <div id="boardDetailsEmpty" class="boards-empty-state">No board details specified.</div>
+          <div class="toggle-row" onclick="toggleAddon('uv', this)">
+            <span class="toggle-label">UV Coat</span>
+            <div class="toggle"></div>
+          </div>
+          <div class="addon-fields collapsed" id="uv">
+            <div class="form-group">
+              <label class="form-label">UV</label>
+              <select class="form-select">
+                <option value="">—</option>
+                <option>Gloss</option>
+                <option>Matte</option>
+                <option>Spot</option>
+              </select>
+            </div>
+          </div>
+          <div class="section-label-sm">Operations</div>
+          <div class="check-grid">
+            <label><input type="checkbox" /> Perf</label>
+            <label><input type="checkbox" /> Drill</label>
+            <label><input type="checkbox" /> Scored</label>
+            <label><input type="checkbox" /> Sew</label>
+            <label><input type="checkbox" /> Stapled</label>
+            <label><input type="checkbox" /> Folded</label>
+            <label><input type="checkbox" /> Collated</label>
+            <label><input type="checkbox" /> Spiraled</label>
+            <label><input type="checkbox" /> Die Cut</label>
+            <label><input type="checkbox" /> Tab Cut</label>
+            <label>
+              <input type="checkbox" id="roundCornersChk" onchange="toggleCornerSize(this)" />
+              Round Corners
+            </label>
+          </div>
+          <div class="addon-fields collapsed" id="cornerSize">
+            <label class="form-label">Corner Size</label>
+            <input class="form-input" type="text" placeholder='e.g. 1/4"' />
           </div>
         </div>
 
-        <!-- Special Instructions -->
-        <div class="boards-section">
-          <div class="boards-section-header">
-            <span class="boards-section-title">Special Instructions</span>
-            <button class="icon-btn" title="Remove special instructions" onclick="clearSpecialInstructions()">
-              <i class="fa-regular fa-trash-can"></i>
+        <!-- Bindery Finishing -->
+        <div class="detail-edit-panel" id="dep-bindery">
+          <div class="check-subgroup">
+            <div class="check-subgroup-label">Decoration</div>
+            <div class="check-grid">
+              <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Emboss</label>
+              <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Logojet</label>
+              <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Deboss</label>
+              <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Laser Engrave</label>
+              <label><input type="checkbox" class="decoration-chk" onchange="onDecorationChange()" /> Flat Stamp</label>
+            </div>
+            <div class="addon-fields collapsed" id="decorationColor">
+              <label class="form-label">Color</label>
+              <input class="form-input" type="text" />
+            </div>
+          </div>
+          <div class="check-subgroup">
+            <div class="check-subgroup-label">Binding Type</div>
+            <div class="check-grid">
+              <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Bands</label>
+              <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Ring Binder</label>
+              <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Cords</label>
+              <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> ScrewPosts</label>
+              <label><input type="checkbox" class="binding-chk" onchange="onBindingChange()" /> Slide-In Pocket</label>
+              <label><input type="checkbox" class="binding-chk" id="clipChk" onchange="onBindingChange(); onClipChange(this)" /> Clip</label>
+            </div>
+            <div class="addon-fields collapsed" id="clipColor">
+              <label class="form-label">Clip Color</label>
+              <select class="form-select">
+                <option value="">—</option>
+                <option>Black</option>
+                <option>Silver</option>
+                <option>Gold</option>
+              </select>
+            </div>
+            <div class="addon-fields collapsed" id="bindingDesc">
+              <label class="form-label">Binding Description</label>
+              <input class="form-input" type="text" />
+            </div>
+          </div>
+          <div class="bindery-board-action">
+            <button class="btn-add-sub" onclick="switchDetailTab(document.querySelector('[data-tab=boards]'), 'boards')">
+              <i class="fa-solid fa-plus"></i> Interior Boards
             </button>
           </div>
-          <div class="boards-section-body" id="specialInstructionsBody">
-            <button class="btn-add-sub" onclick="addSpecialInstructions(this)">
-              <i class="fa-solid fa-plus"></i> Add Special Instructions
-            </button>
+        </div>
+
+        <!-- Interior Boards -->
+        <div class="detail-edit-panel" id="dep-boards">
+          <div class="boards-section">
+            <div class="boards-section-header">
+              <span class="boards-section-title">Insert Details</span>
+            </div>
+            <div class="boards-section-body">
+              <div class="insert-sizes-header">
+                <span></span>
+                <span>Insert Size(s)</span>
+                <span>Quantity</span>
+              </div>
+              <div id="insertSizeList">
+                <div class="insert-size-block" data-insert="1">
+                  <div class="insert-size-fields">
+                    <span class="insert-row-num">1</span>
+                    <div>
+                      <label class="form-label">Width</label>
+                      <input class="form-input" type="text" min="0" />
+                    </div>
+                    <div>
+                      <label class="form-label">Height</label>
+                      <input class="form-input" type="text" min="0" />
+                    </div>
+                    <div>
+                      <label class="form-label">Inserts</label>
+                      <input class="form-input" type="number" value="0" min="0" />
+                    </div>
+                    <div>
+                      <label class="form-label">Carriers</label>
+                      <input class="form-input" type="number" value="0" min="0" />
+                    </div>
+                    <button class="icon-btn" title="Remove" onclick="removeInsertSize(this)">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-add-sub" onclick="addInsertSize()">
+                <i class="fa-solid fa-plus"></i> Add Insert Size
+              </button>
+            </div>
+          </div>
+          <div class="boards-section">
+            <div class="boards-section-header">
+              <span class="boards-section-title">Board Details</span>
+              <div class="seg-toggle" id="boardSegToggle">
+                <button class="seg-toggle-btn" onclick="selectBoardType('corners', this)">Corners</button>
+                <button class="seg-toggle-btn" onclick="selectBoardType('tabs', this)">Tabs</button>
+              </div>
+            </div>
+            <div class="boards-section-body">
+              <div id="boardDetailsEmpty" class="boards-empty-state">No board details specified.</div>
+            </div>
+          </div>
+          <div class="boards-section">
+            <div class="boards-section-header">
+              <span class="boards-section-title">Special Instructions</span>
+              <button class="icon-btn" title="Clear special instructions" onclick="clearSpecialInstructions()">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+            <div class="boards-section-body" id="specialInstructionsBody">
+              <button class="btn-add-sub" onclick="addSpecialInstructions(this)">
+                <i class="fa-solid fa-plus"></i> Add Special Instructions
+              </button>
+            </div>
           </div>
         </div>
 
       </div><!-- /modal-body -->
-      <div class="modal-footer-split">
-        <button class="btn-danger">Delete</button>
-        <div style="display:flex; gap:8px;">
-          <button class="btn-secondary" onclick="closeModal('boards')">Cancel</button>
-          <button class="btn-primary" onclick="saveModal('boards')">Save</button>
-        </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('detailEdit')">Cancel</button>
+        <button class="btn-primary" onclick="saveDetailEdit()">Save</button>
       </div>
     </div>
   </div>
@@ -2489,7 +2590,7 @@
         <button class="icon-btn" onclick="closeModal('editJob')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <div class="check-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="check-grid check-grid-2">
           <label><input type="checkbox" checked /> For Distribution</label>
         </div>
         <div class="form-group">
@@ -2538,9 +2639,9 @@
         <span class="modal-title">Send to Trello</span>
         <button class="icon-btn" onclick="closeModal('trelloConfirm')"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body" style="gap:8px;">
-        <p style="font-size:var(--fontsize-body-sm); color:var(--text-primary); font-weight:600;">Are you sure?</p>
-        <p style="font-size:var(--fontsize-body-sm); color:var(--text-secondary); line-height:1.5;">This will create a new Trello card for
+      <div class="modal-body">
+        <p class="trello-confirm-heading">Are you sure?</p>
+        <p class="trello-confirm-body">This will create a new Trello card for
           job 232323. This action cannot be undone.</p>
       </div>
       <div class="modal-footer">
@@ -2566,11 +2667,11 @@
               <input id="pcInput" class="pc-input" type="text" placeholder="Search by name or email…" autocomplete="off"
                 oninput="pcOnInput(this.value)" onkeydown="pcOnKeydown(event)" />
             </div>
-            <div class="pc-dropdown" id="pcDropdown" style="display:none;"></div>
+            <div class="pc-dropdown hidden-section" id="pcDropdown"></div>
           </div>
         </div>
 
-        <table class="pc-table" id="pcTable" style="display:none;">
+        <table class="pc-table hidden-section" id="pcTable">
           <thead>
             <tr>
               <th class="pc-th-name">Name</th>
@@ -2835,8 +2936,8 @@
       <!-- Detail Tab -->
       <div class="scan-tab-panel" id="scan-panel-detail">
         <div class="scan-status-bar">
-          <select class="form-select" id="detailFilterSelect" onchange="filterDetailScans(this)"
-            style="width:auto; min-width:40px; flex-shrink:0;" disabled>
+          <select class="form-select detail-filter-select" id="detailFilterSelect" onchange="filterDetailScans(this)"
+            disabled>
             <option value="1">Detail 1</option>
           </select>
           <div class="scan-status-search-wrap">
@@ -2912,9 +3013,9 @@
     function switchTab(btn, panel) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden-section'));
       const el = document.getElementById('tab-panel-' + panel);
-      if (el) el.style.display = '';
+      if (el) el.classList.remove('hidden-section');
     }
 
     // ── Shipping ──
@@ -3030,15 +3131,84 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     }
 
-    // ── Detail section pills ──
-    function toggleDetailSection(pill, sectionId) {
-      pill.classList.toggle('active');
-      const section = document.getElementById(sectionId);
-      if (pill.classList.contains('active')) {
-        section.classList.remove('hidden-section');
-      } else {
-        section.classList.add('hidden-section');
+    // ── Detail section state (tracks which sections have data per card) ──
+    const detailSectionState = {
+      'detail-1': { general: true, paper: true, print: false, bindery: false, boards: false }
+    };
+
+    const DETAIL_SECTION_LABELS = {
+      general: 'General',
+      paper: 'Paper',
+      print: 'Print Finishing',
+      bindery: 'Bindery Finishing',
+      boards: 'Interior Boards'
+    };
+
+    let currentDetailId = null;
+
+    function openDetailEdit(cardId, tab) {
+      currentDetailId = cardId;
+      const card = document.getElementById(cardId);
+      // Extract text content of title, skipping the number badge
+      const titleEl = card?.querySelector('.detail-card-title');
+      const titleText = titleEl
+        ? [...titleEl.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent.trim()).join('').trim()
+        : 'Detail';
+      document.getElementById('detailEditTitle').textContent = 'Edit Detail — ' + titleText;
+
+      // Switch to requested tab (default: general)
+      const targetTab = tab || 'general';
+      const tabBtn = document.querySelector(`.detail-edit-tab[data-tab="${targetTab}"]`);
+      if (tabBtn) switchDetailTab(tabBtn, targetTab);
+
+      openModal('detailEdit');
+    }
+
+    function switchDetailTab(btn, tab) {
+      document.querySelectorAll('.detail-edit-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.detail-edit-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('dep-' + tab).classList.add('active');
+    }
+
+    function saveDetailEdit() {
+      if (!currentDetailId) return;
+      const activeTab = document.querySelector('.detail-edit-tab.active')?.dataset.tab;
+      if (activeTab) {
+        if (!detailSectionState[currentDetailId]) detailSectionState[currentDetailId] = {};
+        detailSectionState[currentDetailId][activeTab] = true;
+        updateDetailPills(currentDetailId);
       }
+      closeModal('detailEdit');
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function updateDetailPills(cardId) {
+      const num = cardId.replace('detail-', '');
+      const state = detailSectionState[cardId] || {};
+
+      // Update header pills
+      const container = document.getElementById('detail-pills-' + num);
+      if (container) {
+        container.innerHTML = '';
+        Object.entries(DETAIL_SECTION_LABELS).forEach(([key, label]) => {
+          if (state[key]) {
+            const pill = document.createElement('span');
+            pill.className = 'section-pill active';
+            pill.textContent = label;
+            container.appendChild(pill);
+          }
+        });
+      }
+
+      // Show/hide body sections
+      const sectionKeys = Object.keys(DETAIL_SECTION_LABELS);
+      sectionKeys.forEach(key => {
+        const el = document.getElementById(`ds-${key}-${num}`);
+        if (el) el.classList.toggle('hidden-section', !state[key]);
+      });
     }
 
     // ── Collapsible sections ──
@@ -3067,7 +3237,7 @@
             <div><input class="form-input" type="text" /></div>
             <div><input class="form-input" type="number" value="0" min="0" /></div>
             <div><input class="form-input" type="number" value="0" min="0" /></div>
-            <button class="icon-btn" title="Remove" onclick="removeInsertSize(this)" style="margin-bottom:1px;"><i class="fa-regular fa-trash-can"></i></button>
+            <button class="icon-btn" title="Remove" onclick="removeInsertSize(this)"><i class="fa-regular fa-trash-can"></i></button>
           </div>
         `;
       list.appendChild(block);
@@ -3089,7 +3259,6 @@
       ta.className = 'form-input';
       ta.rows = 4;
       ta.placeholder = 'Enter special instructions…';
-      ta.style.resize = 'vertical';
       body.appendChild(ta);
     }
     function clearSpecialInstructions() {
@@ -3138,62 +3307,50 @@
       detailCount++;
       const panel = document.getElementById('tab-panel-production');
       const n = detailCount;
+      const id = `detail-${n}`;
       const card = document.createElement('div');
       card.className = 'detail-card';
-      card.id = `detail-${n}`;
+      card.id = id;
       card.innerHTML = `
-          <div class="detail-card-header">
-            <div class="detail-card-title">
-              <span class="detail-num">${n}</span>
-              New Detail
-            </div>
-            <div class="detail-pills">
-              <button class="section-pill active" onclick="toggleDetailSection(this, 'ds-general-${n}')">General</button>
-              <button class="section-pill active" onclick="toggleDetailSection(this, 'ds-paper-${n}')">Paper</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-print-${n}')">Print Finishing</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-bindery-${n}')">Bindery Finishing</button>
-              <button class="section-pill" onclick="toggleDetailSection(this, 'ds-boards-${n}')">Interior Boards</button>
-            </div>
-            <button class="icon-btn" title="Remove detail" onclick="this.closest('.detail-card').remove()"><i class="fa-regular fa-trash-can"></i></button>
+        <div class="detail-card-header">
+          <div class="detail-card-title">
+            <span class="detail-num">${n}</span>
+            New Detail
           </div>
-          <div class="detail-card-body">
-            <div class="detail-section" id="ds-general-${n}">
-              <div class="detail-section-header">
-                <span class="detail-section-title">General</span>
-                <button class="icon-btn" onclick="openModal('general')"><i class="fa-regular fa-pen"></i></button>
-              </div>
-              <div class="detail-empty-prompt">No general info specified.</div>
-            </div>
-            <div class="detail-section" id="ds-paper-${n}">
-              <div class="detail-section-header">
-                <span class="detail-section-title">Paper</span>
-                <button class="icon-btn" onclick="openModal('paper')"><i class="fa-regular fa-pen"></i></button>
-              </div>
-              <div class="detail-empty-prompt">No paper info specified.</div>
-            </div>
-            <div class="detail-section hidden-section" id="ds-print-${n}">
-              <div class="detail-section-header">
-                <span class="detail-section-title">Print Finishing</span>
-                <button class="icon-btn" onclick="openModal('print')"><i class="fa-regular fa-pen"></i></button>
-              </div>
-              <div class="detail-empty-prompt">No print finishing specified.</div>
-            </div>
-            <div class="detail-section hidden-section" id="ds-bindery-${n}">
-              <div class="detail-section-header">
-                <span class="detail-section-title">Bindery Finishing</span>
-                <button class="icon-btn" onclick="openModal('bindery')"><i class="fa-regular fa-pen"></i></button>
-              </div>
-              <div class="detail-empty-prompt">No bindery finishing specified.</div>
-            </div>
-            <div class="detail-section hidden-section" id="ds-boards-${n}">
-              <div class="detail-section-header">
-                <span class="detail-section-title">Interior Boards</span>
-                <button class="icon-btn" onclick="openModal('boards')"><i class="fa-regular fa-pen"></i></button>
-              </div>
-              <div class="detail-empty-prompt">No interior boards specified.</div>
-            </div>
+          <div class="detail-pills" id="detail-pills-${n}"></div>
+          <div class="detail-card-actions">
+            <button class="icon-btn" title="Edit detail" onclick="openDetailEdit('${id}')">
+              <i class="fa-regular fa-pen"></i>
+            </button>
+            <button class="icon-btn" title="Remove detail" onclick="this.closest('.detail-card').remove()">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
           </div>
-        `;
+        </div>
+        <div class="detail-card-body">
+          <div class="detail-section hidden-section" id="ds-general-${n}">
+            <div class="detail-section-header"><span class="detail-section-title">General</span></div>
+            <div class="detail-empty-prompt">No general info specified.</div>
+          </div>
+          <div class="detail-section hidden-section" id="ds-paper-${n}">
+            <div class="detail-section-header"><span class="detail-section-title">Paper</span></div>
+            <div class="detail-empty-prompt">No paper info specified.</div>
+          </div>
+          <div class="detail-section hidden-section" id="ds-print-${n}">
+            <div class="detail-section-header"><span class="detail-section-title">Print Finishing</span></div>
+            <div class="detail-empty-prompt">No print finishing specified.</div>
+          </div>
+          <div class="detail-section hidden-section" id="ds-bindery-${n}">
+            <div class="detail-section-header"><span class="detail-section-title">Bindery Finishing</span></div>
+            <div class="detail-empty-prompt">No bindery finishing specified.</div>
+          </div>
+          <div class="detail-section hidden-section" id="ds-boards-${n}">
+            <div class="detail-section-header"><span class="detail-section-title">Interior Boards</span></div>
+            <div class="detail-empty-prompt">No interior boards specified.</div>
+          </div>
+        </div>
+      `;
+      detailSectionState[id] = { general: false, paper: false, print: false, bindery: false, boards: false };
       panel.appendChild(card);
     }
 
@@ -3257,7 +3414,7 @@
               <span class="pc-receives-tags">${pcReceivesTagsHtml(email)}</span>
               <i class="fa-regular fa-angle-down pc-chevron"></i>
             </div>
-            <div class="pc-receives-menu" style="display:none;">
+            <div class="pc-receives-menu hidden-section">
               <label class="pc-receives-opt"><input type="checkbox" value="proofs" ${chk('proofs')} onchange="pcOnReceiveChange(this,'${email}')"> Proofs</label>
               <label class="pc-receives-opt"><input type="checkbox" value="shipping" ${chk('shipping')} onchange="pcOnReceiveChange(this,'${email}')"> Shipping Notifications</label>
               <label class="pc-receives-opt"><input type="checkbox" value="invoices" ${chk('invoices')} onchange="pcOnReceiveChange(this,'${email}')"> Invoices</label>
@@ -3274,11 +3431,11 @@
     function pcToggleReceives(e, trigger) {
       e.stopPropagation();
       const menu = trigger.nextElementSibling;
-      const wasOpen = menu.style.display !== 'none';
-      document.querySelectorAll('.pc-receives-menu').forEach(m => m.style.display = 'none');
+      const wasOpen = !menu.classList.contains('hidden-section');
+      document.querySelectorAll('.pc-receives-menu').forEach(m => m.classList.add('hidden-section'));
       document.querySelectorAll('.pc-row-open').forEach(r => r.classList.remove('pc-row-open'));
       if (!wasOpen) {
-        menu.style.display = 'block';
+        menu.classList.remove('hidden-section');
         trigger.closest('tr')?.classList.add('pc-row-open');
       }
     }
@@ -3293,13 +3450,13 @@
 
     function pcShowListHeader() {
       const tbl = document.getElementById('pcTable');
-      if (tbl) tbl.style.display = pcAdded.size ? '' : 'none';
+      if (tbl) tbl.classList.toggle('hidden-section', !pcAdded.size);
     }
 
     function pcOnInput(val) {
       const q = val.trim().toLowerCase();
       const dropdown = document.getElementById('pcDropdown');
-      if (!q) { dropdown.style.display = 'none'; return; }
+      if (!q) { dropdown.classList.add('hidden-section'); return; }
       pcFiltered = PC_CONTACTS.filter(c =>
         !pcAdded.has(c.email) &&
         (c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q) || c.role.toLowerCase().includes(q))
@@ -3312,7 +3469,7 @@
       const dropdown = document.getElementById('pcDropdown');
       if (!results.length) {
         dropdown.innerHTML = '<div class="pc-dd-empty">No contacts found</div>';
-        dropdown.style.display = 'block';
+        dropdown.classList.remove('hidden-section');
         return;
       }
       const groups = {};
@@ -3331,7 +3488,7 @@
         });
       });
       dropdown.innerHTML = html;
-      dropdown.style.display = 'block';
+      dropdown.classList.remove('hidden-section');
     }
 
     function pcOnKeydown(e) {
@@ -3347,7 +3504,7 @@
         e.preventDefault();
         pcSelect(pcHighlightIndex);
       } else if (e.key === 'Escape') {
-        document.getElementById('pcDropdown').style.display = 'none';
+        document.getElementById('pcDropdown').classList.add('hidden-section');
       }
     }
 
@@ -3359,7 +3516,7 @@
       pcRenderRow(contact, document.getElementById('pcList'));
       pcShowListHeader();
       document.getElementById('pcInput').value = '';
-      document.getElementById('pcDropdown').style.display = 'none';
+      document.getElementById('pcDropdown').classList.add('hidden-section');
       pcFiltered = [];
       pcHighlightIndex = -1;
       pcUpdateAllStrings();
@@ -3393,7 +3550,7 @@
       const proofEmails = [...pcAdded].filter(e => pcReceives[e]?.has('proofs'));
       const prodWrap = document.getElementById('pcProdEmailStringWrap');
       const prodEl   = document.getElementById('pcProdEmailString');
-      if (prodWrap) prodWrap.style.display = proofEmails.length ? '' : 'none';
+      if (prodWrap) prodWrap.classList.toggle('hidden-section', !proofEmails.length);
       if (prodEl)   prodEl.textContent = proofEmails.join(', ');
 
       // Shipping: shipping contacts' names
@@ -3401,7 +3558,7 @@
         .map(e => PC_CONTACTS.find(c => c.email === e)?.name).filter(Boolean);
       const shipWrap = document.getElementById('pcShipWrap');
       const shipEl   = document.getElementById('pcShipNames');
-      if (shipWrap) shipWrap.style.display = shipNames.length ? '' : 'none';
+      if (shipWrap) shipWrap.classList.toggle('hidden-section', !shipNames.length);
       if (shipEl)   shipEl.textContent = shipNames.join(', ');
 
       // Billing: invoice contacts' names
@@ -3409,7 +3566,7 @@
         .map(e => PC_CONTACTS.find(c => c.email === e)?.name).filter(Boolean);
       const billWrap = document.getElementById('pcBillWrap');
       const billEl   = document.getElementById('pcBillNames');
-      if (billWrap) billWrap.style.display = billNames.length ? '' : 'none';
+      if (billWrap) billWrap.classList.toggle('hidden-section', !billNames.length);
       if (billEl)   billEl.textContent = billNames.join(', ');
     }
 
@@ -3443,12 +3600,12 @@
     // Close dropdowns on outside click
     document.addEventListener('mousedown', e => {
       if (!e.target.closest('.pc-receives-wrap')) {
-        document.querySelectorAll('.pc-receives-menu').forEach(m => m.style.display = 'none');
+        document.querySelectorAll('.pc-receives-menu').forEach(m => m.classList.add('hidden-section'));
         document.querySelectorAll('.pc-row-open').forEach(r => r.classList.remove('pc-row-open'));
       }
       if (!document.getElementById('pcCombobox')?.contains(e.target)) {
         const dd = document.getElementById('pcDropdown');
-        if (dd) dd.style.display = 'none';
+        if (dd) dd.classList.add('hidden-section');
       }
     });
 
